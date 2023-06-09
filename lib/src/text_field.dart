@@ -65,7 +65,7 @@ class CustomTextField extends StatefulWidget {
       this.fieldHeight = 50,
       this.borderRadius = 10,
       this.shadowColor = const Color.fromARGB(255, 196, 196, 196),
-      this.offset = const Offset(5, 7),
+      this.offset = const Offset(3, 5),
       this.spreadRadius = 2,
       this.blurRadius = 15,
       this.onChanged,
