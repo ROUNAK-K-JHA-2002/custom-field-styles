@@ -1,6 +1,6 @@
 name: custom_form_fields
-description: A new Flutter package project.
-version: 0.0.1
+description: A Flutter package for easing the stlying of form fields.
+version: 0.1.0
 homepage:
 
 environment:
