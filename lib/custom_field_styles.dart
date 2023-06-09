@@ -1,3 +1,3 @@
-library custom_form_fields;
+library custom_field_styles;
 
 export 'src/text_field.dart';

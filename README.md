@@ -1,5 +1,5 @@
 
-<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/repo_image.JPG"   >
+<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/repo_image.jpg"   >
 
 [comment]: # (https://github.com/ellerbrock/open-source-badges/)
 
@@ -32,7 +32,7 @@ flutter pub get
 ### Import it
 
 ```dart
-import 'package:custom_form_fields/custom_form_fields.dart';
+import 'package:custom_field_styles/custom_field_styles.dart';
 ```
 
 ### Use it
