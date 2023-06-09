@@ -1,3 +1,4 @@
+// import 'package:custom_text_fields/custom_text_fields.dart';
 import 'package:custom_form_fields/custom_form_fields.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.blue.shade400,
       body: SafeArea(
           child: Center(
               child: Container(
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Comic Text Field",
+              "Modern Text Field",
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(
@@ -60,7 +60,9 @@ class _HomePageState extends State<HomePage> {
             ),
             CustomTextField(
               controller: controller,
-              fieldStyle: FieldStyle.password,
+              fieldStyle: FieldStyle.modern,
+              prefixIcon: const Icon(Icons.person_2),
+              suffixIcon: const Icon(Icons.cancel),
             ),
           ],
         ),
