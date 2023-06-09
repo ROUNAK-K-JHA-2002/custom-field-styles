@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 enum FieldStyle {
   simple,
-  retro,
+  comic,
   modern,
   old,
-  roundedStyle,
-  squareStyle,
   elevated,
   password,
 }
@@ -32,6 +30,7 @@ class CustomTextField extends StatefulWidget {
   final Offset offset;
   final double spreadRadius;
   final double blurRadius;
+  final bool enableShadow;
 
   /// An optional maximum number of lines for the text to span, wrapping if necessary.
   /// If the text exceeds the given number of lines, it will be resized according
@@ -45,12 +44,13 @@ class CustomTextField extends StatefulWidget {
 
   ///onTap function to provide extra user end functionalities as otherwise required.
   final void Function()? onTap;
+  final void Function(String value)? onChanged;
   const CustomTextField(
       {super.key,
       required this.controller,
-      this.hintText = "Enter the Value",
-      this.borderColor = Colors.transparent,
-      this.boxColor = Colors.transparent,
+      this.hintText = "Placeholder Text",
+      this.borderColor = const Color.fromARGB(255, 174, 174, 174),
+      this.boxColor = const Color.fromARGB(255, 227, 227, 227),
       this.textColor = Colors.black,
       this.textInputType = TextInputType.text,
       this.onTap,
@@ -64,10 +64,12 @@ class CustomTextField extends StatefulWidget {
       this.suffixIcon,
       this.fieldHeight = 50,
       this.borderRadius = 10,
-      this.shadowColor = const Color.fromARGB(255, 215, 214, 214),
-      this.offset = const Offset(3, 4),
-      this.spreadRadius = 3,
-      this.blurRadius = 10});
+      this.shadowColor = const Color.fromARGB(255, 196, 196, 196),
+      this.offset = const Offset(5, 7),
+      this.spreadRadius = 2,
+      this.blurRadius = 15,
+      this.onChanged,
+      this.enableShadow = false});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -89,7 +91,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           child: TextFormField(
             onTap: widget.onTap,
             controller: widget.controller,
-            textAlignVertical: TextAlignVertical.center,
             keyboardType: widget.textInputType,
             maxLines: widget.maxLines,
             textAlign: widget.textAlign,
@@ -101,13 +102,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
             decoration: InputDecoration(
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+              contentPadding: EdgeInsets.zero,
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
                 borderSide: BorderSide(color: widget.borderColor),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
                 borderSide: BorderSide(color: widget.borderColor),
               ),
               filled: true,
@@ -137,9 +138,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           child: TextFormField(
             onTap: widget.onTap,
             controller: widget.controller,
-            keyboardType: widget.textInputType ?? TextInputType.text,
-            maxLines: widget.maxLines ?? 1,
-            textAlign: TextAlign.center,
+            keyboardType: widget.textInputType,
+            maxLines: widget.maxLines,
+            textAlign: widget.textAlign,
             style: TextStyle(
                 fontSize: widget.fontSize,
                 color: widget.textColor,
@@ -148,7 +149,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             decoration: InputDecoration(
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+              contentPadding: EdgeInsets.zero,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
                 borderSide: BorderSide(color: widget.borderColor),
@@ -170,7 +171,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         );
 
       ///
-      case FieldStyle.retro:
+      case FieldStyle.comic:
         return Container(
           height: widget.fieldHeight,
           decoration: BoxDecoration(
@@ -216,38 +217,127 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
           ),
         );
-      case FieldStyle.modern:
+      case FieldStyle.password:
         return Container(
-          color: Colors.blue,
+          height: widget.fieldHeight,
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              boxShadow: widget.enableShadow
+                  ? [
+                      BoxShadow(
+                          color: widget.shadowColor,
+                          offset: widget.offset,
+                          spreadRadius: widget.spreadRadius,
+                          blurRadius: widget.blurRadius),
+                    ]
+                  : null),
           child: TextFormField(
-            onTap: widget.onTap,
+            onChanged: widget.onChanged,
             controller: widget.controller,
-            keyboardType: widget.textInputType ?? TextInputType.text,
-            maxLines: widget.maxLines ?? 1,
-            textAlign: TextAlign.center,
+            maxLines: widget.maxLines,
+            obscureText: seePassword,
+            textAlign: widget.textAlign,
             style: TextStyle(
-                // fontSize: 17.sp,
-                color: widget.textColor,
-                fontFamily: 'Montserrat',
-                letterSpacing: 1.1),
+              fontSize: widget.fontSize,
+              fontFamily: widget.fontFamily,
+            ),
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0),
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (seePassword) {
+                        seePassword = false;
+                      } else {
+                        seePassword = true;
+                      }
+                    });
+                  },
+                  child: seePassword ? visibleOffIcon : visibleIcon),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 8),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                // borderSide: BorderSide(color: widget.borderColor),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                borderSide: BorderSide(color: widget.borderColor),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                // borderSide: BorderSide(color: widget.borderColor),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                borderSide: BorderSide(color: widget.borderColor),
               ),
               filled: true,
               hintText: widget.hintText,
               hintStyle: TextStyle(
                   // fontSize: 16.sp,
-                  fontFamily: 'Montserrat',
-                  color: widget.textColor,
+                  fontFamily: widget.fontFamily,
+                  color: widget.textColor.withOpacity(0.5),
                   letterSpacing: 1.1),
               fillColor: widget.boxColor,
+            ),
+          ),
+        );
+
+      case FieldStyle.modern:
+        return Container(
+          height: widget.fieldHeight,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6.0),
+            color: widget.boxColor,
+            border: Border.all(color: Colors.transparent),
+            shape: BoxShape.rectangle,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.shade300,
+                  spreadRadius: 0.0,
+                  blurRadius: 10,
+                  offset: const Offset(3.0, 3.0)),
+              BoxShadow(
+                  color: Colors.grey.shade500,
+                  spreadRadius: 0.0,
+                  blurRadius: 10 / 2.0,
+                  offset: const Offset(3.0, 3.0)),
+              const BoxShadow(
+                  color: Colors.white,
+                  spreadRadius: 2.0,
+                  blurRadius: 10,
+                  offset: Offset(-3.0, -3.0)),
+              const BoxShadow(
+                  color: Colors.white,
+                  spreadRadius: 2.0,
+                  blurRadius: 10 / 2,
+                  offset: Offset(-3.0, -3.0)),
+            ],
+          ),
+          child: TextFormField(
+            onTap: widget.onTap,
+            controller: widget.controller,
+            keyboardType: widget.textInputType,
+            maxLines: widget.maxLines,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: widget.fontSize,
+                color: widget.textColor,
+                fontFamily: widget.fontFamily,
+                letterSpacing: widget.letterSpacing),
+            decoration: InputDecoration(
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: widget.suffixIcon,
+              contentPadding: EdgeInsets.zero,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
+              filled: true,
+              hintText: widget.hintText,
+              hintStyle: TextStyle(
+                  // fontSize: 16.sp,
+                  fontFamily: widget.fontFamily,
+                  color: widget.textColor.withOpacity(0.5),
+                  letterSpacing: 1.1),
+              fillColor: Colors.transparent,
             ),
           ),
         );
@@ -286,135 +376,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusedBorder: OutlineInputBorder(
                 // borderRadius: BorderRadius.circular(widget.borderRadius),
                 borderSide: BorderSide(color: widget.boxColor),
-              ),
-              filled: true,
-              hintText: widget.hintText,
-              hintStyle: TextStyle(
-                  // fontSize: 16.sp,
-                  fontFamily: widget.fontFamily,
-                  color: widget.textColor.withOpacity(0.5),
-                  letterSpacing: 1.1),
-              fillColor: widget.boxColor,
-            ),
-          ),
-        );
-      case FieldStyle.roundedStyle:
-        return Container(
-          color: Colors.black,
-          child: TextFormField(
-            onTap: widget.onTap,
-            controller: widget.controller,
-            keyboardType: widget.textInputType ?? TextInputType.text,
-            maxLines: widget.maxLines ?? 1,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                // fontSize: 17.sp,
-                color: widget.textColor,
-                fontFamily: 'Montserrat',
-                letterSpacing: 1.1),
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                // borderSide: BorderSide(color: widget.borderColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                // borderSide: BorderSide(color: widget.borderColor),
-              ),
-              filled: true,
-              hintText: widget.hintText,
-              hintStyle: TextStyle(
-                  // fontSize: 16.sp,
-                  fontFamily: 'Montserrat',
-                  color: widget.textColor,
-                  letterSpacing: 1.1),
-              fillColor: widget.boxColor,
-            ),
-          ),
-        );
-      case FieldStyle.squareStyle:
-        return Container(
-          color: Colors.red,
-          child: TextFormField(
-            onTap: widget.onTap,
-            controller: widget.controller,
-            keyboardType: widget.textInputType ?? TextInputType.text,
-            maxLines: widget.maxLines ?? 1,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                // fontSize: 17.sp,
-                color: widget.textColor,
-                fontFamily: 'Montserrat',
-                letterSpacing: 1.1),
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(0),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                // borderSide: BorderSide(color: widget.borderColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                // borderSide: BorderSide(color: widget.borderColor),
-              ),
-              filled: true,
-              hintText: widget.hintText,
-              hintStyle: TextStyle(
-                  // fontSize: 16.sp,
-                  fontFamily: 'Montserrat',
-                  color: widget.textColor,
-                  letterSpacing: 1.1),
-              fillColor: widget.boxColor,
-            ),
-          ),
-        );
-
-      case FieldStyle.password:
-        return Container(
-          height: widget.fieldHeight,
-          decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(widget.borderRadius),
-              boxShadow: [
-                BoxShadow(
-                    color: widget.shadowColor,
-                    offset: widget.offset == const Offset(3, 4)
-                        ? const Offset(0, 0)
-                        : widget.offset,
-                    spreadRadius: widget.spreadRadius,
-                    blurRadius: widget.blurRadius),
-              ]),
-          child: TextFormField(
-            onChanged: (value) => {},
-            controller: widget.controller,
-            maxLines: widget.maxLines,
-            obscureText: seePassword,
-            textAlign: widget.textAlign,
-            style: TextStyle(
-              fontSize: widget.fontSize,
-              fontFamily: widget.fontFamily,
-            ),
-            decoration: InputDecoration(
-              prefixIcon: widget.prefixIcon,
-              suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (seePassword) {
-                        seePassword = false;
-                      } else {
-                        seePassword = true;
-                      }
-                    });
-                  },
-                  child: seePassword ? visibleOffIcon : visibleIcon),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-                borderSide: BorderSide(color: widget.borderColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-                borderSide: BorderSide(color: widget.borderColor),
               ),
               filled: true,
               hintText: widget.hintText,

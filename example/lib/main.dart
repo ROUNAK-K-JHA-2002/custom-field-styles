@@ -43,20 +43,26 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade400,
+      // backgroundColor: Colors.blue.shade400,
       body: SafeArea(
           child: Center(
               child: Container(
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-        child: CustomTextField(
-          controller: controller,
-          fieldStyle: FieldStyle.password,
-          // prefixIcon: const Icon(Icons.person_2),
-          // suffixIcon: const Icon(Icons.cancel),
-          // borderRadius: 00,
-          boxColor: Colors.white,
-          // borderColor: Colors.white,
-          // shadowColor: Colors.black,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Comic Text Field",
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
+              controller: controller,
+              fieldStyle: FieldStyle.password,
+            ),
+          ],
         ),
       ))),
     );
