@@ -1,6 +1,6 @@
 name: custom_field_styles
 description: A Flutter package for easing the stlying of form fields consisting of customizable Form Fields.
-version: 0.2.0
+version: 0.2.2
 homepage: https://github.com/ROUNAK-K-JHA-2002/custom-field-styles
 
 environment:
