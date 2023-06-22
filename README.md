@@ -53,38 +53,71 @@ return Scaffold(
             const SizedBox(
               height: 20,
             ),
+            /// Custom Form Text Fields , Change [fieldstyle] to change designs
+            ///Required Fields : [controller] 
             CustomTextField(
               controller: controller,
               fieldStyle: FieldStyle.modern,
               prefixIcon: const Icon(Icons.person_2),
               suffixIcon: const Icon(Icons.cancel),
             ),
+             const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "Gradient  Button Field",
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+             /// Custom Form Buttons , Change [buttonstyle] to change designs
+             ///Required Fields : [child] 
+            CustomButtons(
+              onTap: () {
+                debugPrint("Hello , Button Pressed");
+              },
+              buttonStyle: CustomStyle.gradient,
+              firstGradientColor: Colors.purple,
+              secondGradientColor: Colors.pink,
+              enableShadow: true,
+              child: const Text(
+                "Button",
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            )
           ],
         ),
       ))),
     );
 ```
 
-* Required fields are : controller .
-* change value of fieldStyle to change styles.
+* Required fields are : controller for Textfields and child for Buttons.
 
 For more details see the **example**.
 
 
 # Images 
+ Form Fields 
 
 - Simple Text Field
 <img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/simple_text_field.jpg"   height="200">
-- Elevated Text Field
-<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/elevated_text_field.jpg"   height="200">
-- Old Text Field
-<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/old_text_field.jpg"   height="200">
 - Modern Text Field
 <img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/modern_text_field.jpg"   height="200">
-- Comic Text Field
-<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/comic_text_field.jpg"   height="200">
 - Passsword Text Field
 <img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/password_text_field.jpg"   height="200">
+
+
+Form Buttons
+ 
+- Simple Button
+<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/simpleButton.jpg"   height="200">
+- Modern Text Field
+<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/modernButton.jpg"   height="200">
+- Gradient Text Field
+<img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/gradientButton.jpg"   height="200">
 
 
 
