@@ -63,6 +63,31 @@ class _HomePageState extends State<HomePage> {
               prefixIcon: const Icon(Icons.person_2),
               suffixIcon: const Icon(Icons.cancel),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "Gradient  Button Field",
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomButtons(
+              onTap: () {
+                debugPrint("Hello , Button Pressed");
+              },
+              buttonStyle: CustomStyle.gradient,
+              firstGradientColor: Colors.purple,
+              secondGradientColor: Colors.pink,
+              enableShadow: true,
+              child: const Text(
+                "Button",
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            )
           ],
         ),
       ))),
