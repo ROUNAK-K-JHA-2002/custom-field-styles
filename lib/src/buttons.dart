@@ -57,7 +57,7 @@ class CustomButtons extends StatefulWidget {
 }
 
 class _CustomButtonsState extends State<CustomButtons> {
-  bool isPressed = true;
+  bool isPressed = false;
   @override
   void dispose() {
     super.dispose();
@@ -163,9 +163,9 @@ class _CustomButtonsState extends State<CustomButtons> {
               width: widget.width,
               padding: widget.padding,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6.0),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
                 color: widget.boxColor,
-                border: Border.all(color: Colors.transparent),
+                border: Border.all(color: widget.borderColor),
                 shape: BoxShape.rectangle,
                 boxShadow: [
                   BoxShadow(
@@ -185,9 +185,8 @@ class _CustomButtonsState extends State<CustomButtons> {
               width: widget.width,
               padding: widget.padding,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(color: Colors.transparent),
-                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  border: Border.all(color: widget.borderColor),
                   boxShadow: widget.enableShadow
                       ? [
                           BoxShadow(
@@ -206,8 +205,8 @@ class _CustomButtonsState extends State<CustomButtons> {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     colors: [
-                      widget.firstGradientColor,
                       widget.secondGradientColor,
+                      widget.firstGradientColor,
                     ],
                   )),
               child: widget.child,
