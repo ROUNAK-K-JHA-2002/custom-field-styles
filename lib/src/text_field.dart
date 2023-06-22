@@ -186,8 +186,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           child: TextFormField(
             onTap: widget.onTap,
             controller: widget.controller,
-            keyboardType: widget.textInputType ?? TextInputType.text,
-            maxLines: widget.maxLines ?? 1,
+            keyboardType: widget.textInputType,
+            maxLines: widget.maxLines,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: widget.fontSize,
