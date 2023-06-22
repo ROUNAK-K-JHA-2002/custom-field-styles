@@ -114,9 +114,9 @@ Form Buttons
  
 - Simple Button
 <img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/simpleButton.jpg"   height="200">
-- Modern Text Field
+- Modern Button 
 <img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/modernButton.jpg"   height="200">
-- Gradient Text Field
+- Gradient Button 
 <img src="https://raw.github.com/ROUNAK-K-JHA-2002/custom-form-field/main/images/gradientButton.jpg"   height="200">
 
 
